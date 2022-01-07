@@ -64,15 +64,15 @@ def test_single_volume(case, net, test_save_path, FLAGS):
     second_metric = calculate_metric_percase(prediction == 2, label == 2)
     third_metric = calculate_metric_percase(prediction == 3, label == 3)
 
-    img_itk = sitk.GetImageFromArray(image.astype(np.float32))
-    img_itk.SetSpacing((1, 1, 10))
-    prd_itk = sitk.GetImageFromArray(prediction.astype(np.float32))
-    prd_itk.SetSpacing((1, 1, 10))
-    lab_itk = sitk.GetImageFromArray(label.astype(np.float32))
-    lab_itk.SetSpacing((1, 1, 10))
-    sitk.WriteImage(prd_itk, test_save_path + case + "_pred.nii.gz")
-    sitk.WriteImage(img_itk, test_save_path + case + "_img.nii.gz")
-    sitk.WriteImage(lab_itk, test_save_path + case + "_gt.nii.gz")
+    # img_itk = sitk.GetImageFromArray(image.astype(np.float32))
+    # img_itk.SetSpacing((1, 1, 10))
+    # prd_itk = sitk.GetImageFromArray(prediction.astype(np.float32))
+    # prd_itk.SetSpacing((1, 1, 10))
+    # lab_itk = sitk.GetImageFromArray(label.astype(np.float32))
+    # lab_itk.SetSpacing((1, 1, 10))
+    # sitk.WriteImage(prd_itk, test_save_path + case + "_pred.nii.gz")
+    # sitk.WriteImage(img_itk, test_save_path + case + "_img.nii.gz")
+    # sitk.WriteImage(lab_itk, test_save_path + case + "_gt.nii.gz")
     return first_metric, second_metric, third_metric
 
 

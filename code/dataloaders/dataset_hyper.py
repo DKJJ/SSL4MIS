@@ -10,6 +10,8 @@ from scipy.ndimage.interpolation import zoom
 import itertools
 from scipy import ndimage
 from torch.utils.data.sampler import Sampler
+from PIL import Image
+import cv2
 
 
 class BaseDataSets(Dataset):
@@ -19,13 +21,13 @@ class BaseDataSets(Dataset):
         self.split = split
         self.transform = transform
         if self.split == 'train':
-            with open(self._base_dir + '/train_slices.list', 'r') as f1:
+            with open(self._base_dir + '/split_0_train.txt', 'r') as f1:
                 self.sample_list = f1.readlines()
             self.sample_list = [item.replace('\n', '')
                                 for item in self.sample_list]
 
         elif self.split == 'val':
-            with open(self._base_dir + '/val.list', 'r') as f:
+            with open(self._base_dir + '/split_0_val.txt', 'r') as f:
                 self.sample_list = f.readlines()
             self.sample_list = [item.replace('\n', '')
                                 for item in self.sample_list]
@@ -38,13 +40,21 @@ class BaseDataSets(Dataset):
 
     def __getitem__(self, idx):
         case = self.sample_list[idx]
-        if self.split == "train":
-            h5f = h5py.File(self._base_dir +
-                            "/data/slices/{}.h5".format(case), 'r')
-        else:
-            h5f = h5py.File(self._base_dir + "/data/{}.h5".format(case), 'r')
-        image = h5f['image'][:]
-        label = h5f['label'][:]
+        # if self.split == "train":
+        #     h5f = h5py.File(self._base_dir +
+        #                     "/data/slices/{}.h5".format(case), 'r')
+        # else:
+        #     h5f = h5py.File(self._base_dir + "/data/{}.h5".format(case), 'r')
+        # image = h5f['image'][:]
+        # label = h5f['label'][:]
+        image = np.load(self._base_dir + "/data/" + case).astype('float32')
+        # image = image - np.mean(image, axis=(1, 2)).reshape((60, 1, 1))
+        # image = image / np.maximum(np.std(image, axis=(1, 2)) / 255, 0.0001).reshape((60, 1, 1))
+        image -= np.mean(image, axis=(1, 2), keepdims=True)
+        image /= np.clip(np.std(image, axis=(1, 2), keepdims=True), 1e-6, 1e6)
+        for band in range(image.shape[0]):
+            image[band, :, :] = cv2.medianBlur(image[band, :, :], ksize=3)
+        label = np.array(Image.open(self._base_dir + "/label/" + case.replace('.npy', '_mask.png'))) / 255
         sample = {'image': image, 'label': label}
         if self.split == "train":
             sample = self.transform(sample)
@@ -54,10 +64,11 @@ class BaseDataSets(Dataset):
 
 def random_rot_flip(image, label):
     k = np.random.randint(0, 4)
-    image = np.rot90(image, k)
+    image = np.rot90(image, k, (1, 2))
     label = np.rot90(label, k)
-    axis = np.random.randint(0, 2) #[0, 2) different from np.randint(0, 2) which is random in between [0, 2]
-    image = np.flip(image, axis=axis).copy()
+    axis1 = np.random.randint(1, 3)
+    axis = np.random.randint(0, 2)
+    image = np.flip(image, axis=axis1).copy()
     label = np.flip(label, axis=axis).copy()
     return image, label
 
@@ -82,13 +93,13 @@ class RandomGenerator(object):
             image, label = random_rot_flip(image, label)
         elif random.random() > 0.5:
             image, label = random_rotate(image, label)
-        x, y = image.shape
+        c, x, y = image.shape
         image = zoom(
-            image, (self.output_size[0] / x, self.output_size[1] / y), order=0)
+            image, (1, self.output_size[0] / x, self.output_size[1] / y), order=0)
         label = zoom(
             label, (self.output_size[0] / x, self.output_size[1] / y), order=0)
         image = torch.from_numpy(
-            image.astype(np.float32)).unsqueeze(0)
+            image.astype(np.float32))#.unsqueeze(0)
         label = torch.from_numpy(label.astype(np.uint8))
         sample = {'image': image, 'label': label}
         return sample

@@ -12,12 +12,11 @@ from medpy import metric
 
 def cal_dice(prediction, label, num=2):
     total_dice = np.zeros(num-1)
-    for i in range(1, num):
+    for i in range(0, num):
         prediction_tmp = (prediction == i)
         label_tmp = (label == i)
         prediction_tmp = prediction_tmp.astype(np.float)
         label_tmp = label_tmp.astype(np.float)
-
         dice = 2 * np.sum(prediction_tmp * label_tmp) / (np.sum(prediction_tmp) + np.sum(label_tmp))
         total_dice[i - 1] += dice
 
