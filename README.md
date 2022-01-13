@@ -1,8 +1,9 @@
 # Semi-supervised-learning-for-medical-image-segmentation.
 
 * Recently, semi-supervised image segmentation has become a hot topic in medical image computing, unfortunately, there are only a few open-source codes and datasets, since the privacy policy and others. For easy evaluation and fair comparison, we are trying to build a semi-supervised medical image segmentation benchmark to boost the semi-supervised learning research in the medical image computing community. **If you are interested, you can push your implementations or ideas to this repo or contact us at any time**.  
+* This repo has re-implemented these semi-supervised methods (with some modifications for semi-supervised medical image segmentation, more details please refer to these original works): (1) [Mean Teacher](https://papers.nips.cc/paper/6719-mean-teachers-are-better-role-models-weight-averaged-consistency-targets-improve-semi-supervised-deep-learning-results.pdf); (2) [Entropy Minimization](https://openaccess.thecvf.com/content_CVPR_2019/papers/Vu_ADVENT_Adversarial_Entropy_Minimization_for_Domain_Adaptation_in_Semantic_Segmentation_CVPR_2019_paper.pdf); (3) [Deep Adversarial Networks](https://link.springer.com/chapter/10.1007/978-3-319-66179-7_47); (4) [Uncertainty Aware Mean Teacher](https://arxiv.org/pdf/1907.07034.pdf); (5) [Interpolation Consistency Training](https://arxiv.org/pdf/1903.03825.pdf); (6) [Uncertainty Rectified Pyramid Consistency](https://arxiv.org/pdf/2012.07042.pdf); (7) [Cross Pseudo Supervision](https://arxiv.org/abs/2106.01226); (8) [Cross Consistency Training](https://openaccess.thecvf.com/content_CVPR_2020/papers/Ouali_Semi-Supervised_Semantic_Segmentation_With_Cross-Consistency_Training_CVPR_2020_paper.pdf); (9) [Deep Co-Training](https://openaccess.thecvf.com/content_ECCV_2018/papers/Siyuan_Qiao_Deep_Co-Training_for_ECCV_2018_paper.pdf); (10) [Cross Teaching between CNN and Transformer](https://arxiv.org/pdf/2112.04894.pdf). In addition, several backbones networks (both 2D and 3D) are also supported in this repo, such as **UNet, nnUNet, VNet, AttentionUNet, ENet, Swin-UNet, etc**.
 
-* This project was originally developed for our previous works [URPC](https://arxiv.org/pdf/2012.07042.pdf) ([MICCAI2021](https://miccai2021.org/en/) early accept). **If you use this codebase in your research, please cite the following works**:
+* This project was originally developed for our previous works [URPC](https://link.springer.com/chapter/10.1007/978-3-030-87196-3_30) ([MICCAI2021](https://miccai2021.org/en/) early accept). Now and future, we are still working on extending it to be more user-friendly and support more approaches to further boost and ease this topic research. **If you use this codebase in your research, please cite the following works**:
 
 		@InProceedings{luo2021urpc,
 		author={Luo, Xiangde and Liao, Wenjun and Chen, Jieneng and Song, Tao and Chen, Yinan and Zhang, Shichuan and Chen, Nianyong and Wang, Guotai and Zhang, Shaoting},
@@ -10,24 +11,40 @@
 		booktitle={Medical Image Computing and Computer Assisted Intervention -- MICCAI 2021},
 		year={2021},
 		pages={318--329}}
-		  
+		 
+		@InProceedings{luo2021dtc,
+		title={Semi-supervised Medical Image Segmentation through Dual-task Consistency},
+		author={Luo, Xiangde and Chen, Jieneng and Song, Tao and  Wang, Guotai},
+		journal={AAAI Conference on Artificial Intelligence},
+		year={2021},
+		pages={8801-8809}}
+		
+		@article{luo2021ctbct,
+  		title={Semi-Supervised Medical Image Segmentation via Cross Teaching between CNN and Transformer},
+  		author={Luo, Xiangde and Hu, Minhao and Song, Tao and Wang, Guotai and Zhang, Shaoting},
+  		journal={arXiv preprint arXiv:2112.04894},
+  		year={2021}}
+		
 		@misc{ssl4mis2020,
-		  title={{SSL4MIS}},
-		  author={Luo, Xiangde},
-		  howpublished={\url{https://github.com/HiLab-git/SSL4MIS}},
-		  year={2020}}
-		  	
-<!-- 		@InProceedings{luo2021semi,
-		  title={Semi-supervised Medical Image Segmentation through Dual-task Consistency},
-		  author={Luo, Xiangde and Chen, Jieneng and Song, Tao and  Wang, Guotai},
-		  journal={AAAI Conference on Artificial Intelligence},
-		  year={2021},
-		  pages={8801-8809}} -->
-
+		title={{SSL4MIS}},
+		author={Luo, Xiangde},
+		howpublished={\url{https://github.com/HiLab-git/SSL4MIS}},
+		year={2020}}
+		
 ## Literature reviews of semi-supervised learning approach for medical image segmentation (**SSL4MIS**).
-
 |Date|The First and Last Authors|Title|Code|Reference|
 |---|---|---|---|---|
+|2021-12|X. Xu and P. Yan|Shadow-consistent Semi-supervised Learning for Prostate Ultrasound Segmentation|[Code](https://github.com/DIAL-RPI/SCO-SSL)|[TMI2021](https://ieeexplore.ieee.org/document/9667363)|
+|2021-12|L. Hu and Y. Wang|Semi-supervised NPC segmentation with uncertainty and attention guided consistency|None|[KBS2021](https://www.sciencedirect.com/science/article/abs/pii/S0950705121011205)|
+|2021-12|J. Peng and M. Pedersoli|Self-Paced Contrastive Learning for Semi-supervised Medical Image Segmentation with Meta-labels|[Code](https://github.com/jizongFox/Self-paced-Contrastive-Learning)|[NeurIPS2021](https://proceedings.neurips.cc/paper/2021/file/8b5c8441a8ff8e151b191c53c1842a38-Paper.pdf)|
+|2021-12|Y. Xie and Y. Xia|Intra- and Inter-pair Consistency for Semi-supervised Gland Segmentation|None|[TIP2021](https://ieeexplore.ieee.org/document/9662661)|
+|2021-12|K. Chaitanya and E. Konukoglu|Local contrastive loss with pseudo-label based self-training for semi-supervised medical image segmentation|[Code](https://github.com/krishnabits001/pseudo_label_contrastive_training)|[Arxiv](https://arxiv.org/pdf/2112.09645.pdf)|
+|2021-12|X. Luo and S. Zhang|Semi-Supervised Medical Image Segmentation via Cross Teaching between CNN and Transformer|[Code](https://github.com/HiLab-git/SSL4MIS)|[Arxiv](https://arxiv.org/pdf/2112.04894.pdf)|
+|2021-12|Y. Zhang and J. Zhang|Uncertainty-Guided Mutual Consistency Learning for Semi-Supervised Medical Image Segmentation|None|[Arxiv](https://arxiv.org/pdf/2112.02508.pdf)|
+|2021-12|J. Wang and Q. Zhou|Separated Contrastive Learning for Organ-at-Risk and Gross-Tumor-Volume Segmentation with Limited Annotat|[Code](https://github.com/jcwang123/Separate_CL)|[AAAI2022](https://arxiv.org/pdf/2112.02743.pdf)|
+|2021-12|J. Chen and Y. Lu|MT-TransUNet: Mediating Multi-Task Tokens in Transformers for Skin Lesion Segmentation and Classification|[Code](https://github.com/JingyeChen/MT-TransUNet)|[Arxiv](https://arxiv.org/pdf/2112.01767.pdf)|
+|2021-12|C. Seibold and R. Stiefelhagen|Reference-guided Pseudo-Label Generation for Medical Semantic Segmentation|None|[AAAI2022](https://arxiv.org/abs/2112.00735)|
+|2021-11|X. Zheng and C. Sham|Uncertainty-Aware Deep Co-training for Semi-supervised Medical Image Segmentation|None|[Arxiv](https://arxiv.org/pdf/2111.11629v1.pdf)|
 |2021-11|J. Peng and M. Pedersoli|Diversified Multi-prototype Representation for Semi-supervised Segmentation|[Code](https://github.com/jizongFox/MI-based-Regularized-Semi-supervised-Segmentation)|[Arxiv](https://arxiv.org/pdf/2111.08651.pdf)|
 |2021-10|J. Hou and J. Deng|Semi-Supervised Semantic Segmentation of Vessel Images using Leaking Perturbations|None|[WACV2021](https://arxiv.org/pdf/2110.11998.pdf)|
 |2021-10|M. Xu and J. Jacob|MisMatch: Learning to Change Predictive Confidences with Attention for Consistency-Based, Semi-Supervised Medical Image Segmentation|None|[Arxiv](https://arxiv.org/pdf/2110.12179.pdf)|
@@ -52,9 +69,10 @@
 |2021-08|C. You and J. Duncan|SimCVD: Simple Contrastive Voxel-Wise Representation Distillation for Semi-Supervised Medical Image Segmentation|None|[Arxiv](https://arxiv.org/pdf/2108.06227.pdf)|
 |2021-08|C. Li and P. Heng|Self-Ensembling Co-Training Framework for Semi-supervised COVID-19 CT Segmentation|None|[JBHI2021](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9511146)|
 |2021-08|H. Yang and P. H. N. With|Medical Instrument Segmentation in 3D US by Hybrid Constrained Semi-Supervised Learning|None|[JBHI2021](https://arxiv.org/pdf/2107.14476.pdf)|
+|2021-07|Q. Xu and X. Wang|Semi-supervised Medical Image Segmentation with Confidence Calibration|None|[IJCNN](https://ieeexplore.ieee.org/document/9534435)|
 |2021-07|W. Ding and H. Hawash|RCTE: A Reliable and Consistent Temporal-ensembling Framework for Semi-supervised Segmentation of COVID-19 Lesions|None|[Information Fusion2021](https://www.sciencedirect.com/science/article/pii/S0020025521007490)|
 |2021-06|X. Liu and S. A. Tsaftaris|Semi-supervised Meta-learning with Disentanglement for Domain-generalised Medical Image Segmentation|[Code](https://github.com/vios-s/DGNet)|[MICCAI2021](https://arxiv.org/pdf/2106.13292.pdf)|
-|2021-06|P. Pandey and Mausam|Contrastive Semi-Supervised Learning for 2D Medical Image Segmentation|None|[MICCAI2021](https://arxiv.org/pdf/2106.06801.pdf)|
+|2021-06|P. Pandey and Mausam|Contrastive Semi-Supervised Learning for 2D Medical Image Segmentation|None|[MICCAI2021](https://arxiv.org/pdf/2106.06801v1.pdf)|
 |2021-06|C. Li and Y. Yu|Hierarchical Deep Network with Uncertainty-aware Semi-supervised Learning for Vessel Segmentation|None|[Arxiv](https://arxiv.org/pdf/2105.14732.pdf)|
 |2021-05|J. Xiang and S. Zhang|Self-Ensembling Contrastive Learning for Semi-Supervised Medical Image Segmentation|None|[Arxiv](https://arxiv.org/pdf/2105.12924.pdf)|
 |2021-05|S. Li and C. Guan|Hierarchical Consistency Regularized Mean Teacher for Semi-supervised 3D Left Atrium Segmentation|None|[Arxiv](https://arxiv.org/pdf/2105.10369.pdf)|
